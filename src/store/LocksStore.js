@@ -1,4 +1,4 @@
-import { Module, getModule, VuexModule, MutationAction } from 'vuex-module-decorators'
+import { Module, getModule, VuexModule, MutationAction, Action } from 'vuex-module-decorators'
 import store from '@/store'
 import { BackendProvider } from '@/api/providers/BackendProvider'
 
@@ -35,6 +35,35 @@ class LocksStore extends VuexModule {
     return {
       locks: locks.data.data
     }
+  }
+
+  /**
+   * @param {import('@/api/requests/LockRequest').LockRequest} lock
+   */
+  @Action
+  async addLock (lock) {
+    const api = new BackendProvider()
+    await api.addLock(lock)
+    await this.loadLocks()
+  }
+
+  /**
+   * @param {number} lockId
+   */
+  @Action
+  async removeLock (lockId) {
+    const api = new BackendProvider()
+    await api.removeLock(lockId)
+    await this.loadLocks()
+  }
+
+  /**
+   * @param {import('@/models/LockModel').LockModel} lock
+   */
+  @Action
+  async openLock (lock) {
+    const api = new BackendProvider()
+    await api.openLock(lock)
   }
 }
 

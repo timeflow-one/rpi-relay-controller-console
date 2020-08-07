@@ -10,6 +10,8 @@
         <v-autocomplete
           v-model="selectedSite"
           :items="sites"
+          item-text="name"
+          item-value="id"
           :placeholder="$vuetify.lang.t('$vuetify.locks.select_site_label')"
           :title="$vuetify.lang.t('$vuetify.locks.select_site_label')"
           outlined
@@ -79,7 +81,7 @@
       >
         <v-subheader v-text="$vuetify.lang.t('$vuetify.locks.relay_in_label')" />
         <v-select
-          v-model="selectedRelay"
+          v-model="selectedRelayIn"
           :items="relays"
           item-value="id"
           item-text="gpio"
@@ -98,7 +100,7 @@
       >
         <v-subheader v-text="$vuetify.lang.t('$vuetify.locks.relay_out_label')" />
         <v-select
-          v-model="selectedRelay"
+          v-model="selectedRelayOut"
           :items="relays"
           item-value="id"
           item-text="gpio"
@@ -116,8 +118,10 @@
     >
       <v-btn
         color="accent"
-        v-text="$vuetify.lang.t('$vuetify.locks.add_lock')"
-      />
+        :disabled="addButtonDisabled"
+        :loading="addButtonStateLoading"
+        @click="addLock"
+      >{{ $vuetify.lang.t('$vuetify.locks.add_lock') }}</v-btn>
     </v-layout>
   </div>
 </template>
