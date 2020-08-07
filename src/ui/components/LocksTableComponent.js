@@ -5,22 +5,32 @@ import LocksStore from '@/store/LocksStore'
 export default class LocksTableComponent extends Vue {
   columnsConfig = [
     {
-      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[0]')
+      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[0]'),
+      hidden: false
     },
     {
-      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[1]')
+      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[1]'),
+      hidden: false
     },
     {
-      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[2]')
+      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[2]'),
+      hidden: false
     },
     {
-      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[3]')
+      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[3]'),
+      hidden: false
     },
     {
-      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[4]')
+      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[4]'),
+      hidden: false
     },
     {
-      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[5]')
+      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[5]'),
+      hidden: true
+    },
+    {
+      header: this.$vuetify.lang.t('$vuetify.locks.table.headers[6]'),
+      hidden: false
     }
   ]
 

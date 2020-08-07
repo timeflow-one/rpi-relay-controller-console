@@ -8,13 +8,10 @@ export default class AddLockComponent extends Vue {
   selectedSite = -1
   inputDoorIdentificator = ''
   selectedRelay = -1
+  timeout = 3
 
-  async created () {
-    await Promise.all([
-      LocksStore.loadTypes(),
-      LocksStore.loadLocks(),
-      RelaysStore.loadRelays()
-    ])
+  created () {
+    this.onLockTypesFilled(this.lockTypes)
   }
 
   get sites () {
@@ -26,7 +23,11 @@ export default class AddLockComponent extends Vue {
   }
 
   get lockTypes () {
-    return LocksStore.types
+    return LocksStore.types.map(it => ({
+      id: it.id,
+      type: it.type,
+      text: this.$vuetify.lang.t(`$vuetify.locks.type.${it.type}`)
+    }))
   }
 
   /**
