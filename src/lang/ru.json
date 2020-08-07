@@ -7,20 +7,31 @@
     "config": "Конфигурация"
   },
   "locks": {
+    "type": {
+      "direct": "Простой",
+      "composite": "Составной"
+    },
+    "add_lock": "Добавить",
     "add_lock_header": "Добавить точку прохода",
-    "site_label": "Объект для доступа",
-    "select_site_label": "Выберите объект для доступа",
+    "adding_lock_header": "Добавление точки прохода",
+    "site_label": "Объект",
+    "select_site_label": "Выберите объект",
     "door_label": "Идентификатор двери",
-    "input_door_label": "Введите идентификатор двери",
+    "input_door_label": "Задайте идентификатор двери",
+    "timeout_label": "Таймаут (сек.)",
+    "input_timeout_label": "Введите таймаут",
     "lock_type_label": "Тип замка",
     "select_lock_type_label": "Выберите тип замка",
-    "relay_label": "Реле для точки прохода",
-    "select_relay_label": "Выберите реле для точки прохода",
+    "relay_in_label": "Реле открытия замка",
+    "select_relay_in_label": "Выберите реле",
+    "relay_out_label": "Реле закрытия замка",
+    "select_relay_out_label": "Выберите реле",
     "list_locks_header": "Список точек прохода",
     "table": {
       "headers": [
         "Объекты",
         "Идентификатор двери",
+        "Таймаут (сек.)",
         "Тип замка",
         "Реле открытия замка",
         "Реле закрытия замка",
