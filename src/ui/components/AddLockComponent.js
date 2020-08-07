@@ -9,6 +9,14 @@ export default class AddLockComponent extends Vue {
   inputDoorIdentificator = ''
   selectedRelay = -1
 
+  async created () {
+    await Promise.all([
+      LocksStore.loadTypes(),
+      LocksStore.loadLocks(),
+      RelaysStore.loadRelays()
+    ])
+  }
+
   get sites () {
     return []
   }

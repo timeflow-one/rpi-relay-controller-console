@@ -11,6 +11,9 @@ class LocksStore extends VuexModule {
   /** @type {Array<import('@/models/LockTypeModel').LockTypeModel>} */
   types = []
 
+  /** @type {Array<import('@/models/LockModel').LockModel>} */
+  locks = []
+
   @MutationAction({ mutate: ['types'] })
   async loadTypes () {
     const api = new BackendProvider()
@@ -21,6 +24,16 @@ class LocksStore extends VuexModule {
         id: index,
         type: it
       }))
+    }
+  }
+
+  @MutationAction({ mutate: ['locks'] })
+  async loadLocks () {
+    const api = new BackendProvider()
+    const locks = await api.getLocks()
+
+    return {
+      locks: locks.data.data
     }
   }
 }

@@ -18,4 +18,11 @@ export class BackendProvider {
   async getRelays () {
     return this.requestManager.get('/api/relays')
   }
+
+  /**
+   * @returns {Promise<import('axios').AxiosResponse<import('../responses/CommonResponse').CommonResponse<Array<import('@/models/LockModel').LockModel>>>>}
+   */
+  async getLocks () {
+    return this.requestManager.get('/api/locks')
+  }
 }
