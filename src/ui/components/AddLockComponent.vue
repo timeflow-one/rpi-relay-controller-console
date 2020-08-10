@@ -72,6 +72,7 @@
           :disabled="lockTypes.length <= 1"
           :placeholder="$vuetify.lang.t('$vuetify.locks.select_lock_type_label')"
           :title="$vuetify.lang.t('$vuetify.locks.select_lock_type_label')"
+          prepend-inner-icon="mdi-lock-alert"
           outlined
           hide-details
         />
@@ -90,6 +91,7 @@
           item-text="gpio"
           :placeholder="$vuetify.lang.t('$vuetify.locks.select_relay_in_label')"
           :title="$vuetify.lang.t('$vuetify.locks.select_relay_in_label')"
+          prepend-inner-icon="mdi-transit-detour"
           outlined
           hide-details
         />
@@ -109,6 +111,7 @@
           item-text="gpio"
           :placeholder="$vuetify.lang.t('$vuetify.locks.select_relay_out_label')"
           :title="$vuetify.lang.t('$vuetify.locks.select_relay_out_label')"
+          prepend-inner-icon="mdi-transit-detour"
           outlined
           hide-details
         />
@@ -133,7 +136,7 @@
 .border {
   border: 1px rgba(0, 0, 0, 0.38) solid; // var(--border-color)
   border-radius: 4px;
-  padding-bottom: 11px !important;
+  padding-bottom: 10px !important;
   transition-duration: 0.3s;
   transition-property: border-color;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
