@@ -1,6 +1,6 @@
 {
   "appbar": {
-    "title": "Панель управления контроллера"
+    "title": "Панель управления RPi Relay Controller"
   },
   "routes": {
     "locks": "Точки прохода",
