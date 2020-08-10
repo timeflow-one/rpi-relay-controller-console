@@ -36,6 +36,7 @@
       <v-card-actions>
         <v-btn
           text
+          class="d-none"
           color="info"
           @click="openExternalDoc"
         >
