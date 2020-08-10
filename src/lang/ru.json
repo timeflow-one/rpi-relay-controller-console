@@ -2,6 +2,10 @@
   "appbar": {
     "title": "Панель управления RPi Relay Controller"
   },
+  "common": {
+    "close": "Закрыть",
+    "more": "Подробнее"
+  },
   "routes": {
     "locks": "Точки прохода",
     "config": "Конфигурация"
@@ -17,7 +21,7 @@
     "site_label": "Объект",
     "select_site_label": "Выберите объект",
     "door_label": "Идентификатор точки прохода",
-    "input_door_label": "Задайте идентификатор точки прохода",
+    "input_door_label": "Задайте идентификатор",
     "timeout_label": "Таймаут (сек.)",
     "input_timeout_label": "Введите таймаут",
     "lock_type_label": "Тип замка",
@@ -42,7 +46,18 @@
       "actions": {
         "open_door": "Открыть",
         "open_door_expand": "Открыть точку прохода",
-        "delete_door": "Удалить точку прохода"
+        "delete_door": "Удалить точку прохода",
+        "params": "Параметры настройки устройства"
+      }
+    },
+    "params_dialog": {
+      "headline": "Параметры настройки устройства",
+      "headers": {
+        "param": "Параметр",
+        "value": "Значение"
+      },
+      "values": {
+        "manual": "Указывается вручную"
       }
     }
   },

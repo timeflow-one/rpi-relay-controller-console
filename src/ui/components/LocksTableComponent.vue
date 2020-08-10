@@ -69,6 +69,15 @@
           >
             <v-icon>mdi-delete-outline</v-icon>
           </v-btn>
+
+          <v-btn
+            icon
+            :title="$vuetify.lang.t('$vuetify.locks.table.actions.params')"
+            :loading="item.state.delete.loading"
+            @click="showDeviceParamsDialog(item)"
+          >
+            <v-icon>mdi-information-outline</v-icon>
+          </v-btn>
         </td>
         <td>
           <v-btn
@@ -82,6 +91,11 @@
         </td>
       </tr>
     </tbody>
+
+    <DeviceInfoModal
+      v-model="selectedLockParamsDialog.state"
+      :lock="selectedLockParamsDialog.lock"
+    />
   </v-simple-table>
 </template>
 

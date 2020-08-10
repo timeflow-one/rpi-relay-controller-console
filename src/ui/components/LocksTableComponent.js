@@ -1,9 +1,35 @@
 import { Component, Vue } from 'vue-property-decorator'
 import LocksStore from '@/store/LocksStore'
 import NotificationStore from '@/store/NotificationStore'
+import DeviceInfoModal from '@/ui/components/DeviceInfoModal.vue'
 
-@Component
+@Component({
+  components: {
+    DeviceInfoModal
+  }
+})
 export default class LocksTableComponent extends Vue {
+  /**
+   * @typedef {object} Lock
+   * @property {number} id
+   * @property {string} destination
+   * @property {string} site
+   * @property {string} door
+   * @property {import('@/models/LockType').LockType} type
+   * @property {boolean} is_enabled
+   * @property {number | null} relay_in
+   * @property {number | null} relay_out
+   * @property {number} timeout
+   * @property {object} state
+   * @property {object} state.delete
+   * @property {boolean} state.delete.loading
+   * @property {object} state.open
+   * @property {boolean} state.open.loading
+   */
+
+  /** @type {Required<{ state: boolean, lock: Lock | null }>} */
+  selectedLockParamsDialog = { state: false, lock: null }
+
   columnsConfig = [
     {
       header: this.$vuetify.lang.t('$vuetify.locks.table.headers[0]'),
@@ -43,6 +69,9 @@ export default class LocksTableComponent extends Vue {
     }
   ]
 
+  /**
+   * @returns {Array<Lock>}
+   */
   get locks () {
     return LocksStore.locks.map(it => ({
       id: it.id,
@@ -133,5 +162,13 @@ export default class LocksTableComponent extends Vue {
     } finally {
       lockActionsState.state.delete.loading = false
     }
+  }
+
+  /**
+   * @param {Lock} lock
+   */
+  showDeviceParamsDialog (lock) {
+    this.$set(this.selectedLockParamsDialog, 'lock', lock)
+    this.selectedLockParamsDialog.state = true
   }
 }
