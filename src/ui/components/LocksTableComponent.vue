@@ -64,8 +64,8 @@
             icon
             color="primary"
             :title="$vuetify.lang.t('$vuetify.locks.table.actions.delete_door')"
-            :loading="locksActionsState[i].delete.loading"
-            @click="deleteDoor(item)"
+            :loading="item.state.delete.loading"
+            @click="removeDoor(item)"
           >
             <v-icon>mdi-delete-outline</v-icon>
           </v-btn>
@@ -75,7 +75,7 @@
             text
             color="accent"
             :title="$vuetify.lang.t('$vuetify.locks.table.actions.open_door_expand')"
-            :loading="locksActionsState[i].open.loading"
+            :loading="item.state.open.loading"
             :disabled="!item.is_enabled"
             @click="openDoor(item)"
           >{{ $vuetify.lang.t('$vuetify.locks.table.actions.open_door') }}</v-btn>

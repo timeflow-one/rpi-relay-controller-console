@@ -5,6 +5,8 @@
     <v-main>
       <v-container>
         <router-view />
+
+        <NotificationComponent />
       </v-container>
     </v-main>
   </v-app>

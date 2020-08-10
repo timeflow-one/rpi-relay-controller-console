@@ -1,5 +1,6 @@
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import LocksStore from '@/store/LocksStore'
+import NotificationStore from '@/store/NotificationStore'
 
 @Component
 export default class LocksTableComponent extends Vue {
@@ -42,9 +43,6 @@ export default class LocksTableComponent extends Vue {
     }
   ]
 
-  /** @type {Array<{id: number, delete: {loading: boolean}, open: {loading: boolean}}>} */
-  locksActionsState = []
-
   get locks () {
     return LocksStore.locks.map(it => ({
       id: it.id,
@@ -55,7 +53,15 @@ export default class LocksTableComponent extends Vue {
       is_enabled: it.is_enabled,
       relay_in: it.relay_in ? it.relay_in.gpio : null,
       relay_out: it.relay_out ? it.relay_out.gpio : null,
-      timeout: it.timeout
+      timeout: it.timeout,
+      state: {
+        delete: {
+          loading: false
+        },
+        open: {
+          loading: false
+        }
+      }
     }))
   }
 
@@ -63,52 +69,49 @@ export default class LocksTableComponent extends Vue {
    * @param {import('@/models/LockModel').LockModel} lock
    */
   async openDoor (lock) {
-    /** @type {Required<{id: number, delete: {loading: boolean}, open: {loading: boolean}}>} */
-    // @ts-ignore
-    const lockActionsState = this.locksActionsState.find(it => it.id === lock.id)
+    const lockActionsState = this.locks.filter(it => it.id === lock.id)[0]
     try {
-      lockActionsState.open.loading = true
+      lockActionsState.state.open.loading = true
       await LocksStore.openLock(lock)
+      NotificationStore.showMessage({
+        message: this.$vuetify.lang.t('$vuetify.notifications.door_opened', `${lockActionsState.site}-${lockActionsState.door}`),
+        status: 'success'
+      })
     } catch (err) {
-      // TODO (2020.08.07): Add alert with message
-      throw new Error('Not implemented')
+      console.error(err)
+
+      NotificationStore.showMessage({
+        message: this.$vuetify.lang.t('$vuetify.notifications.door_open_failed', `${lockActionsState.site}-${lockActionsState.door}`, err.message),
+        status: 'error'
+      })
     } finally {
-      lockActionsState.open.loading = false
+      lockActionsState.state.open.loading = false
     }
   }
 
   /**
    * @param {import('@/models/LockModel').LockModel} lock
    */
-  async deleteDoor (lock) {
-    /** @type {Required<{id: number, delete: {loading: boolean}, open: {loading: boolean}}>} */
-    // @ts-ignore
-    const lockActionsState = this.locksActionsState.find(it => it.id === lock.id)
+  async removeDoor (lock) {
+    const lockActionsState = this.locks.filter(it => it.id === lock.id)[0]
     try {
-      lockActionsState.delete.loading = true
+      lockActionsState.state.delete.loading = true
       await LocksStore.removeLock(lock.id)
-    } catch (err) {
-      // TODO (2020.08.07): Add alert with message
-      throw new Error('Not implemented')
-    } finally {
-      lockActionsState.delete.loading = false
-    }
-  }
+      LocksStore.loadLocks()
 
-  /**
-   * @param {Array<import('@/models/LockModel').LockModel>} locks
-   */
-  @Watch('locks')
-  onLocksChanged (locks) {
-    this.locksActionsState.length = 0
-    this.locksActionsState.push(...Array.from({ length: locks.length }, (_, k) => ({
-      id: locks[k].id,
-      delete: {
-        loading: false
-      },
-      open: {
-        loading: false
-      }
-    })))
+      NotificationStore.showMessage({
+        message: this.$vuetify.lang.t('$vuetify.notifications.door_removed', `${lockActionsState.site}-${lockActionsState.door}`),
+        status: 'success'
+      })
+    } catch (err) {
+      console.error(err)
+
+      NotificationStore.showMessage({
+        message: this.$vuetify.lang.t('$vuetify.notifications.door_remove_failed', `${lockActionsState.site}-${lockActionsState.door}`, err.message),
+        status: 'error'
+      })
+    } finally {
+      lockActionsState.state.delete.loading = false
+    }
   }
 }

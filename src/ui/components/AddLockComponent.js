@@ -3,6 +3,7 @@ import LocksStore from '@/store/LocksStore'
 import RelaysStore from '@/store/RelaysStore'
 import { BackendProvider } from '@/api/providers/BackendProvider'
 import SitesStore from '@/store/SitesStore'
+import NotificationStore from '@/store/NotificationStore'
 
 @Component
 export default class AddLockComponent extends Vue {
@@ -20,22 +21,40 @@ export default class AddLockComponent extends Vue {
   }
 
   async addLock () {
+    const addingLock = {
+      site: this.sites.filter(it => it.id === this.selectedSite)[0].name,
+      door: this.inputDoorIdentificator,
+      type: this.lockTypes.filter(it => it.id === this.selectedLockType)[0].type,
+      is_enabled: true,
+      timeout: this.timeout * 1000,
+      relay_in: this.relays.find(it => it.id === this.selectedRelayIn)?.id,
+      relay_out: this.relays.find(it => it.id === this.selectedRelayOut)?.id
+    }
+
     try {
       this.addButtonStateLoading = true
-      await LocksStore.addLock({
-        // @ts-ignore
-        site: this.sites.find(it => it.id === this.selectedSite).name,
-        door: this.inputDoorIdentificator,
-        // @ts-ignore
-        type: this.lockTypes.find(it => it.id === this.selectedLockType).type,
-        is_enabled: true,
-        timeout: this.timeout * 1000,
-        relay_in: this.relays.find(it => it.id === this.selectedRelayIn)?.id,
-        relay_out: this.relays.find(it => it.id === this.selectedRelayOut)?.id
+      const addedLock = await LocksStore.addLock(addingLock)
+      LocksStore.loadLocks()
+
+      NotificationStore.showMessage({
+        message: this.$vuetify.lang.t(
+          '$vuetify.notifications.door_added',
+          addedLock.data.data.destination
+            .split(String(process.env.VUE_APP_DOOR_SEPARATOR))
+            .join('-')
+        ),
+        status: 'success'
       })
     } catch (err) {
-      // TODO (2020.08.07): Add alert with message
-      throw new Error('Not implemented')
+      console.error(err)
+
+      NotificationStore.showMessage({
+        message: this.$vuetify.lang.t(
+          '$vuetify.notifications.door_add_failed',
+          `${addingLock.site}-${addingLock.door}`, err.message
+        ),
+        status: 'error'
+      })
     } finally {
       this.addButtonStateLoading = false
     }

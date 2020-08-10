@@ -7,22 +7,18 @@ import store from '@/store'
   name: 'NotificationStore'
 })
 class NotificationStore extends VuexModule {
-  message = ''
+  /**
+   * @type {Required<{ message: string, status: 'success' | 'info' | 'error' }>}
+   */
+  message = { message: '', status: 'success' }
 
   /**
-   * @param {string} message
+   * @param {Required<{ message: string, status: 'success' | 'info' | 'error' }>} message
    */
   @MutationAction({ mutate: ['message'] })
   async showMessage (message) {
     return {
       message
-    }
-  }
-
-  @MutationAction({ mutate: ['message'] })
-  async cleanMessage () {
-    return {
-      message: ''
     }
   }
 }

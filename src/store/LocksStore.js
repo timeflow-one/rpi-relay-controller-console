@@ -43,8 +43,7 @@ class LocksStore extends VuexModule {
   @Action
   async addLock (lock) {
     const api = new BackendProvider()
-    await api.addLock(lock)
-    await this.loadLocks()
+    return api.addLock(lock)
   }
 
   /**
@@ -54,7 +53,6 @@ class LocksStore extends VuexModule {
   async removeLock (lockId) {
     const api = new BackendProvider()
     await api.removeLock(lockId)
-    await this.loadLocks()
   }
 
   /**
