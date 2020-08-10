@@ -45,7 +45,6 @@ export class BackendProvider {
   }
 
   /**
-   *
    * @param {import('@/models/LockModel').LockModel} lock
    */
   async openLock (lock) {
@@ -53,5 +52,13 @@ export class BackendProvider {
       source: lock.destination,
       initiator: 'console'
     })
+  }
+
+  /**
+   * @param {string} token
+   */
+  async checkToken (token) {
+    throw new Error('Not implemented')
+    // return this.requestManager.get('')
   }
 }

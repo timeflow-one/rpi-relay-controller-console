@@ -46,7 +46,7 @@
         <v-slider
           v-model="timeout"
           color="accent"
-          class="px-3 py-3 border"
+          class="px-3 py-3 border rounded"
           prepend-icon="mdi-lock-clock"
           persistent-hint
           step="1"
@@ -134,8 +134,7 @@
 
 <style lang="scss" scoped>
 .border {
-  border: 1px rgba(0, 0, 0, 0.38) solid; // var(--border-color)
-  border-radius: 4px;
+  border: 1px rgba(0, 0, 0, 0.38) solid;
   padding-bottom: 10px !important;
   transition-duration: 0.3s;
   transition-property: border-color;

@@ -1,5 +1,6 @@
 import { Module, getModule, VuexModule, Mutation, MutationAction, Action } from 'vuex-module-decorators'
 import store from '@/store'
+import { BackendProvider } from '@/api/providers/BackendProvider'
 
 @Module({
   dynamic: true,
@@ -59,6 +60,20 @@ class PreferencesStore extends VuexModule {
         token: null,
         tokenAvailable: false
       }
+    }
+  }
+
+  /**
+   * @param {string} token
+   */
+  @MutationAction({ mutate: ['token', 'tokenAvailable'], rawError: true })
+  async checkToken (token) {
+    const api = new BackendProvider()
+    await api.checkToken(token)
+
+    return {
+      token,
+      tokenAvailable: true
     }
   }
 }
