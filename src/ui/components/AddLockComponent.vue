@@ -14,6 +14,7 @@
           item-value="id"
           :placeholder="$vuetify.lang.t('$vuetify.locks.select_site_label')"
           :title="$vuetify.lang.t('$vuetify.locks.select_site_label')"
+          prepend-inner-icon="mdi-office-building"
           outlined
           hide-details
         />
@@ -29,6 +30,7 @@
           v-model="inputDoorIdentificator"
           :placeholder="$vuetify.lang.t('$vuetify.locks.input_door_label')"
           :title="$vuetify.lang.t('$vuetify.locks.input_door_label')"
+          prepend-inner-icon="mdi-door-closed-lock"
           outlined
           clearable
           hide-details
@@ -44,7 +46,8 @@
         <v-slider
           v-model="timeout"
           color="accent"
-          class="mt-3"
+          class="px-3 py-3 border"
+          prepend-icon="mdi-lock-clock"
           persistent-hint
           step="1"
           min="1"
@@ -125,5 +128,20 @@
     </v-layout>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.border {
+  border: 1px rgba(0, 0, 0, 0.38) solid; // var(--border-color)
+  border-radius: 4px;
+  padding-bottom: 11px !important;
+  transition-duration: 0.3s;
+  transition-property: border-color;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &:hover {
+    border-color: rgba(0, 0, 0, 0.87);
+  }
+}
+</style>
 
 <script src="@/ui/components/AddLockComponent" />
