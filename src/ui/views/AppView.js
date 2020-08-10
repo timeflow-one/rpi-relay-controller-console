@@ -1,6 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import AppBar from '@/ui/components/AppBar.vue'
 import NotificationComponent from '@/ui/components/NotificationComponent.vue'
+import PreferencesStore from '@/store/PreferencesStore'
 
 @Component({
   components: {
@@ -9,4 +10,7 @@ import NotificationComponent from '@/ui/components/NotificationComponent.vue'
   }
 })
 export default class AppView extends Vue {
+  async created () {
+    await PreferencesStore.loadPreferences()
+  }
 }
