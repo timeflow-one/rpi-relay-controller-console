@@ -14,7 +14,7 @@ class LocksStore extends VuexModule {
   /** @type {Array<import('@/models/LockModel').LockModel>} */
   locks = []
 
-  @MutationAction({ mutate: ['types'] })
+  @MutationAction({ mutate: ['types'], rawError: true })
   async loadTypes () {
     const api = new BackendProvider()
     const lockTypes = await api.getLockTypes()
@@ -27,7 +27,7 @@ class LocksStore extends VuexModule {
     }
   }
 
-  @MutationAction({ mutate: ['locks'] })
+  @MutationAction({ mutate: ['locks'], rawError: true })
   async loadLocks () {
     const api = new BackendProvider()
     const locks = await api.getLocks()
@@ -38,9 +38,9 @@ class LocksStore extends VuexModule {
   }
 
   /**
-   * @param {import('@/api/requests/LockRequest').LockRequest} lock
+   * @param {Partial<import('@/api/requests/LockRequest').LockRequest} lock
    */
-  @Action
+  @Action({ rawError: true })
   async addLock (lock) {
     const api = new BackendProvider()
     return api.addLock(lock)
@@ -49,7 +49,7 @@ class LocksStore extends VuexModule {
   /**
    * @param {number} lockId
    */
-  @Action
+  @Action({ rawError: true })
   async removeLock (lockId) {
     const api = new BackendProvider()
     await api.removeLock(lockId)
@@ -58,7 +58,7 @@ class LocksStore extends VuexModule {
   /**
    * @param {import('@/models/LockModel').LockModel} lock
    */
-  @Action
+  @Action({ rawError: true })
   async openLock (lock) {
     const api = new BackendProvider()
     await api.openLock(lock)

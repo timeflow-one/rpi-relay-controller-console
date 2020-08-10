@@ -3,6 +3,7 @@ import AddLockComponent from '@/ui/components/AddLockComponent.vue'
 import LocksTableComponent from '@/ui/components/LocksTableComponent.vue'
 import LocksStore from '@/store/LocksStore'
 import RelaysStore from '@/store/RelaysStore'
+import SitesStore from '@/store/SitesStore'
 
 @Component({
   components: {
@@ -17,7 +18,8 @@ export default class LocksView extends Vue {
     await Promise.all([
       LocksStore.loadTypes(),
       LocksStore.loadLocks(),
-      RelaysStore.loadRelays()
+      RelaysStore.loadRelays(),
+      SitesStore.loadSites()
     ])
   }
 }

@@ -1,4 +1,4 @@
-import { Module, getModule, VuexModule } from 'vuex-module-decorators'
+import { Module, getModule, VuexModule, MutationAction } from 'vuex-module-decorators'
 import store from '@/store'
 
 @Module({
@@ -10,7 +10,15 @@ class SitesStore extends VuexModule {
   /**
    * @type {Array<{id: number; name: string}>}
    */
-  sites = [{ id: 1, name: 'test' }]
+  sites = []
+
+  @MutationAction({ mutate: ['sites'], rawError: true })
+  async loadSites () {
+    // TODO (2020.08.10): Load sites
+    return {
+      sites: [{ id: 1, name: 'test' }, { id: 2, name: 'test_app' }]
+    }
+  }
 }
 
 export default getModule(SitesStore)

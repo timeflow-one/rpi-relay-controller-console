@@ -22,9 +22,9 @@ export default class AddLockComponent extends Vue {
 
   async addLock () {
     const addingLock = {
-      site: this.sites.filter(it => it.id === this.selectedSite)[0].name,
+      site: this.sites.find(it => it.id === this.selectedSite)?.name,
       door: this.inputDoorIdentificator,
-      type: this.lockTypes.filter(it => it.id === this.selectedLockType)[0].type,
+      type: this.lockTypes.find(it => it.id === this.selectedLockType)?.type,
       is_enabled: true,
       timeout: this.timeout * 1000,
       relay_in: this.relays.find(it => it.id === this.selectedRelayIn)?.id,
@@ -46,15 +46,27 @@ export default class AddLockComponent extends Vue {
         status: 'success'
       })
     } catch (err) {
-      console.error(err)
-
-      NotificationStore.showMessage({
-        message: this.$vuetify.lang.t(
-          '$vuetify.notifications.door_add_failed',
-          `${addingLock.site}-${addingLock.door}`, err.message
-        ),
+      /** @type {Required<{ message: string, status: 'success' | 'info' | 'error' }>} */
+      const msg = {
+        message: '',
         status: 'error'
-      })
+      }
+
+      switch (err.response?.data?.error?.title) {
+        case 'QueryFailedError': {
+          if (err.response?.data?.error?.detail.startsWith('SQLITE_CONSTRAINT: UNIQUE constraint failed')) {
+            msg.message = this.$vuetify.lang.t('$vuetify.notifications.door_add_failed_exist', `${addingLock.site}-${addingLock.door}`)
+          }
+
+          break
+        }
+
+        default: {
+          msg.message = this.$vuetify.lang.t('$vuetify.notifications.door_add_failed', `${addingLock.site}-${addingLock.door}`, err.message)
+        }
+      }
+
+      NotificationStore.showMessage(msg)
     } finally {
       this.addButtonStateLoading = false
     }

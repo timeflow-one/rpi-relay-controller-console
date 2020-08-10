@@ -30,7 +30,7 @@ export class BackendProvider {
   }
 
   /**
-   * @param {import('../requests/LockRequest').LockRequest} lock
+   * @param {Partial<import('../requests/LockRequest').LockRequest>} lock
    * @returns {Promise<import('axios').AxiosResponse<import('../responses/CommonResponse').CommonResponse<import('@/models/LockModel').LockModel>>>}
    */
   async addLock (lock) {

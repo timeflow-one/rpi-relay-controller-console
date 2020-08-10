@@ -11,7 +11,7 @@ class RelaysStore extends VuexModule {
   /** @type {Array<import('@/models/RelayModel').RelayModel>} */
   relays = []
 
-  @MutationAction({ mutate: ['relays'] })
+  @MutationAction({ mutate: ['relays'], rawError: true })
   async loadRelays () {
     const api = new BackendProvider()
     const relays = await api.getRelays()

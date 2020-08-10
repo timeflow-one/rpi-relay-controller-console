@@ -78,12 +78,25 @@ export default class LocksTableComponent extends Vue {
         status: 'success'
       })
     } catch (err) {
-      console.error(err)
-
-      NotificationStore.showMessage({
-        message: this.$vuetify.lang.t('$vuetify.notifications.door_open_failed', `${lockActionsState.site}-${lockActionsState.door}`, err.message),
+      /** @type {Required<{ message: string, status: 'success' | 'info' | 'error' }>} */
+      const msg = {
+        message: '',
         status: 'error'
-      })
+      }
+
+      switch (err.response?.data?.error?.title) {
+        case 'RelayException': {
+          msg.message = this.$vuetify.lang.t('$vuetify.notifications.door_open_failed', `${lockActionsState.site}-${lockActionsState.door}`)
+
+          break
+        }
+
+        default: {
+          msg.message = this.$vuetify.lang.t('$vuetify.notifications.door_open_failed', `${lockActionsState.site}-${lockActionsState.door}`)
+        }
+      }
+
+      NotificationStore.showMessage(msg)
     } finally {
       lockActionsState.state.open.loading = false
     }
@@ -104,12 +117,19 @@ export default class LocksTableComponent extends Vue {
         status: 'success'
       })
     } catch (err) {
-      console.error(err)
-
-      NotificationStore.showMessage({
-        message: this.$vuetify.lang.t('$vuetify.notifications.door_remove_failed', `${lockActionsState.site}-${lockActionsState.door}`, err.message),
+      /** @type {Required<{ message: string, status: 'success' | 'info' | 'error' }>} */
+      const msg = {
+        message: '',
         status: 'error'
-      })
+      }
+
+      switch (err.response?.data?.error?.title) {
+        default: {
+          msg.message = this.$vuetify.lang.t('$vuetify.notifications.door_remove_failed', `${lockActionsState.site}-${lockActionsState.door}`)
+        }
+      }
+
+      NotificationStore.showMessage(msg)
     } finally {
       lockActionsState.state.delete.loading = false
     }
