@@ -37,6 +37,7 @@
     "relay_out_label": "Реле закрытия замка",
     "select_relay_out_label": "Выберите реле",
     "list_locks_header": "Список точек прохода",
+    "list_empty": "Список пуст",
     "table": {
       "headers": [
         "Объекты",

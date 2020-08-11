@@ -10,7 +10,13 @@
     <v-spacer />
 
     <v-toolbar-items>
-        <v-btn v-for="(item, i) in routes" :key="i" text v-text="item.title" :to="item.route" />
+      <v-btn
+        v-for="(item, i) in routes"
+        :key="i"
+        text
+        :to="item.route"
+        :disabled="item.disabled"
+      >{{ item.title }}</v-btn>
     </v-toolbar-items>
   </v-app-bar>
 </template>

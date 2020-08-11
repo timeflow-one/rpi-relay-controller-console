@@ -4,6 +4,7 @@
       v-model="expanded"
       focusable
       flat
+      :disabled="!hasConnected"
     >
       <v-expansion-panel>
         <v-expansion-panel-header>

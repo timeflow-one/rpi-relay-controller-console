@@ -36,6 +36,8 @@ export default class AddLockComponent extends Vue {
       const addedLock = await LocksStore.addLock(addingLock)
       LocksStore.loadLocks()
 
+      this.reset()
+
       NotificationStore.showMessage({
         message: this.$vuetify.lang.t(
           '$vuetify.notifications.door_added',
@@ -69,6 +71,20 @@ export default class AddLockComponent extends Vue {
       NotificationStore.showMessage(msg)
     } finally {
       this.addButtonStateLoading = false
+    }
+  }
+
+  reset () {
+    this.selectedSite = -1
+    this.inputDoorIdentificator = ''
+    this.selectedRelayIn = -1
+    this.selectedRelayOut = -1
+    this.timeout = 3
+
+    if (this.lockTypes.length === 1) {
+      this.onLockTypesFilled(this.lockTypes)
+    } else {
+      this.selectedLockType = -1
     }
   }
 

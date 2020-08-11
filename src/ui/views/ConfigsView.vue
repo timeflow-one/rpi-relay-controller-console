@@ -1,7 +1,7 @@
 <template>
   <v-layout column>
     <v-subheader
-      class="text-uppercase"
+      class="text-uppercase mt-4"
       v-text="$vuetify.lang.t('$vuetify.configs.token_header')"
     />
 

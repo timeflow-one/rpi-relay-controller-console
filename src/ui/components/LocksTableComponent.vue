@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table>
+  <v-simple-table v-if="locks.length > 0">
     <thead>
       <tr>
         <th
@@ -97,6 +97,10 @@
       :lock="selectedLockParamsDialog.lock"
     />
   </v-simple-table>
+
+  <v-layout v-else justify-center>
+    <span>{{ $vuetify.lang.t('$vuetify.locks.list_empty') }}</span>
+  </v-layout>
 </template>
 
 <script src="@/ui/components/LocksTableComponent" />

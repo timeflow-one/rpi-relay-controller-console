@@ -12,7 +12,7 @@ class PreferencesStore extends VuexModule {
    * @private
    * @readonly
    */
-  PREFERENCES = 'preferences'
+  static PREFERENCES = 'preferences'
 
   /** @type {string | null} */
   token = null
@@ -38,22 +38,22 @@ class PreferencesStore extends VuexModule {
   async save () {
     const preferences = {
       token: this.token,
-      token_available: this.configured
+      configured: this.configured
     }
 
-    localStorage.setItem(this.PREFERENCES, btoa(JSON.stringify(preferences)))
+    localStorage.setItem(PreferencesStore.PREFERENCES, btoa(JSON.stringify(preferences)))
   }
 
   @MutationAction({ mutate: ['token', 'configured'], rawError: true })
   async loadPreferences () {
-    const preferences = localStorage.getItem(this.PREFERENCES)
+    const preferences = localStorage.getItem(PreferencesStore.PREFERENCES)
 
     if (preferences) {
       const parsedPreferences = JSON.parse(atob(preferences))
 
       return {
         token: parsedPreferences.token,
-        configured: parsedPreferences.token_available
+        configured: parsedPreferences.configured
       }
     } else {
       return {
