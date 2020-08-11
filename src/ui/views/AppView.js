@@ -17,27 +17,29 @@ export default class AppView extends Vue {
   async created () {
     await PreferencesStore.loadPreferences()
 
-    /** @type {Required<{ message: string, status: 'success' | 'info' | 'error' }>} */
-    const msg = {
-      message: '',
-      status: 'success'
-    }
+    if (PreferencesStore.tokenAvailable) {
+      /** @type {Required<{ message: string, status: 'success' | 'info' | 'error' }>} */
+      const msg = {
+        message: '',
+        status: 'success'
+      }
 
-    try {
-      await Promise.all([
-        LocksStore.loadTypes(),
-        LocksStore.loadLocks(),
-        RelaysStore.loadRelays(),
-        SitesStore.loadSites()
-      ])
+      try {
+        await Promise.all([
+          LocksStore.loadTypes(),
+          LocksStore.loadLocks(),
+          RelaysStore.loadRelays(),
+          SitesStore.loadSites()
+        ])
 
-      msg.message = this.$vuetify.lang.t('$vuetify.notifications.locks_sync_success')
-      msg.status = 'success'
-    } catch (err) {
-      msg.message = this.$vuetify.lang.t('$vuetify.notifications.locks_sync_failed')
-      msg.status = 'error'
-    } finally {
-      NotificationStore.showMessage(msg)
+        msg.message = this.$vuetify.lang.t('$vuetify.notifications.locks_sync_success')
+        msg.status = 'success'
+      } catch (err) {
+        msg.message = this.$vuetify.lang.t('$vuetify.notifications.locks_sync_failed')
+        msg.status = 'error'
+      } finally {
+        NotificationStore.showMessage(msg)
+      }
     }
   }
 }
