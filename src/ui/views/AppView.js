@@ -15,6 +15,14 @@ import NotificationStore from '@/store/NotificationStore'
 })
 export default class AppView extends Vue {
   async created () {
+    // set page title
+    document.title = this.$vuetify.lang.t(`$vuetify.titles.${this.$route.name}`)
+    this.$router.beforeEach((to, _, next) => {
+      document.title = this.$vuetify.lang.t(`$vuetify.titles.${to.name}`)
+
+      next()
+    })
+
     await PreferencesStore.loadPreferences()
 
     if (PreferencesStore.tokenAvailable) {

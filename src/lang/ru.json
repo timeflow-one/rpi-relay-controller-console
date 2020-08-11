@@ -1,4 +1,8 @@
 {
+  "titles": {
+    "locks": "Управление точками прохода",
+    "config": "Конфигурация"
+  },
   "appbar": {
     "title": "Панель управления RPi Relay Controller"
   },
