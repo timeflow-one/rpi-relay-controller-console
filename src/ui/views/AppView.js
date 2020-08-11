@@ -25,7 +25,7 @@ export default class AppView extends Vue {
 
     await PreferencesStore.loadPreferences()
 
-    if (PreferencesStore.tokenAvailable) {
+    if (PreferencesStore.configured) {
       /** @type {Required<{ message: string, status: 'success' | 'info' | 'error' }>} */
       const msg = {
         message: '',

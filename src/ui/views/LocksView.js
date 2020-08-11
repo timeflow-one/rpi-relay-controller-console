@@ -13,6 +13,6 @@ export default class LocksView extends Vue {
   expanded = false
 
   get hasInit () {
-    return PreferencesStore.tokenAvailable
+    return PreferencesStore.configured
   }
 }

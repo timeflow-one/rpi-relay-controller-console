@@ -16,7 +16,7 @@ class PreferencesStore extends VuexModule {
 
   /** @type {string | null} */
   token = null
-  tokenAvailable = false
+  configured = false
 
   /**
    * @param {string | null} token
@@ -30,21 +30,21 @@ class PreferencesStore extends VuexModule {
    * @param {boolean} state
    */
   @Mutation
-  setTokenAvailable (state) {
-    this.tokenAvailable = state
+  setConfigured (state) {
+    this.configured = state
   }
 
   @Action
   async save () {
     const preferences = {
       token: this.token,
-      token_available: this.tokenAvailable
+      token_available: this.configured
     }
 
     localStorage.setItem(this.PREFERENCES, btoa(JSON.stringify(preferences)))
   }
 
-  @MutationAction({ mutate: ['token', 'tokenAvailable'], rawError: true })
+  @MutationAction({ mutate: ['token', 'configured'], rawError: true })
   async loadPreferences () {
     const preferences = localStorage.getItem(this.PREFERENCES)
 
@@ -53,12 +53,12 @@ class PreferencesStore extends VuexModule {
 
       return {
         token: parsedPreferences.token,
-        tokenAvailable: parsedPreferences.token_available
+        configured: parsedPreferences.token_available
       }
     } else {
       return {
         token: null,
-        tokenAvailable: false
+        configured: false
       }
     }
   }
@@ -66,14 +66,13 @@ class PreferencesStore extends VuexModule {
   /**
    * @param {string} token
    */
-  @MutationAction({ mutate: ['token', 'tokenAvailable'], rawError: true })
+  @MutationAction({ mutate: ['token'], rawError: true })
   async checkToken (token) {
     const api = new BackendProvider()
     await api.checkToken(token)
 
     return {
-      token,
-      tokenAvailable: true
+      token
     }
   }
 }
