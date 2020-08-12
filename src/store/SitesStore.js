@@ -1,5 +1,7 @@
 import { Module, getModule, VuexModule, MutationAction } from 'vuex-module-decorators'
 import store from '@/store'
+import { BackendProvider } from '@/api/providers/BackendProvider'
+import PreferencesStore from './PreferencesStore'
 
 @Module({
   dynamic: true,
@@ -8,15 +10,21 @@ import store from '@/store'
 })
 class SitesStore extends VuexModule {
   /**
-   * @type {Array<{id: number; name: string}>}
+   * @type {Array<import('@/models/SiteModel').SiteModel>}>}
    */
   sites = []
 
   @MutationAction({ mutate: ['sites'], rawError: true })
   async loadSites () {
-    // TODO (2020.08.10): Load sites
-    return {
-      sites: [{ id: 1, name: 'test' }, { id: 2, name: 'test_app' }]
+    if (PreferencesStore.token) {
+      const api = new BackendProvider()
+      const sites = await api.getSites(PreferencesStore.token)
+
+      return {
+        sites
+      }
+    } else {
+      throw new Error('Token can\'t be null')
     }
   }
 }
