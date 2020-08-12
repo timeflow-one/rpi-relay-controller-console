@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - '*.*.*'
+      - 'v*.*.*'
 
 name: Create release
 
@@ -19,7 +19,7 @@ jobs:
       - name: Build project
         run: npm run build
       - name: Tar build
-        run: tar -cf rpi-relay-controller-console.tar dist
+        run: tar -cf rpi-relay-controller-console.tar dist/*
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
