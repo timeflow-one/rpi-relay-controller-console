@@ -39,6 +39,7 @@ export class BackendProvider {
 
   /**
    * @param {number} lockId
+   * @returns {Promise<import('axios').AxiosResponse<void>>}
    */
   async removeLock (lockId) {
     return this.requestManager.delete(`/api/locks/${lockId}`)
@@ -46,6 +47,7 @@ export class BackendProvider {
 
   /**
    * @param {import('@/models/LockModel').LockModel} lock
+   * @returns {Promise<import('axios').AxiosResponse<void>>}
    */
   async openLock (lock) {
     return this.requestManager.post('/lock/open', {
@@ -56,8 +58,24 @@ export class BackendProvider {
 
   /**
    * @param {string} token
+   * @param {object} params
+   * @returns {Promise<import('axios').AxiosResponse<import('@/models/SiteModel').SiteModel>>}
+   */
+  async getSites (token, params = {}) {
+    return this.requestManager.get('/api/sites', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      params
+    })
+  }
+
+  /**
+   * @param {string} token
+   * @returns {Promise<import('axios').AxiosResponse<any>>}
    */
   async checkToken (token) {
+    // TODO (2020.08.12): Check token
     throw new Error('Not implemented')
     // return this.requestManager.get('')
   }
