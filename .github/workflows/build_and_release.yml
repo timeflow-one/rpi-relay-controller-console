@@ -22,7 +22,7 @@ jobs:
         id: version
         uses: martinbeentjes/npm-get-version-action@master
       - name: Tar build
-        run: tar -cf rpi-relay-controller-console.tar dist/*
+        run: tar -cf rpi-relay-controller-console.tar -C dist .
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
