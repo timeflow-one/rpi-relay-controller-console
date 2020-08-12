@@ -22,7 +22,7 @@ jobs:
         id: version
         uses: martinbeentjes/npm-get-version-action@master
       - name: Tar build
-        run: tar -cf rpi-relay-controller-console.tar -C dist .
+        run: cd dist && tar -cf rpi-relay-controller-console.tar .
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
@@ -39,6 +39,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./rpi-relay-controller-console.tar
+          asset_path: ./dist/rpi-relay-controller-console.tar
           asset_name: rpi-relay-controller-console.tar
           asset_content_type: application/zip
