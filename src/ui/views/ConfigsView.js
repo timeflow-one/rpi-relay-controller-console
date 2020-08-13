@@ -6,17 +6,21 @@ import NotificationStore from '@/store/NotificationStore'
 export default class ConfigsView extends Vue {
   checkTokenProgress = false
 
-  /** @type {string | null} */
-  _token = null
-
   _tokenValid = false
 
   created () {
     this._token = PreferencesStore.token
   }
 
+  get token () {
+    return PreferencesStore.token
+  }
+
+  set token (token) {
+    PreferencesStore.setToken(token)
+  }
+
   async save () {
-    PreferencesStore.setToken(this._token)
     PreferencesStore.setConfigured(this._tokenValid)
     await PreferencesStore.save()
 
@@ -30,7 +34,7 @@ export default class ConfigsView extends Vue {
   }
 
   get saveButtonEnabled () {
-    return PreferencesStore.configured && PreferencesStore.token !== this._token
+    return this._tokenValid
   }
 
   /**

@@ -6,7 +6,7 @@
     />
 
     <v-text-field
-      v-model="_token"
+      v-model="token"
       solo
       color="accent"
       :loading="checkTokenProgress"

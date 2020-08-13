@@ -38,7 +38,7 @@ class LocksStore extends VuexModule {
   }
 
   /**
-   * @param {Partial<import('@/api/requests/LockRequest').LockRequest} lock
+   * @param {Partial<import('@/api/requests/LockRequest').LockRequest>} lock
    */
   @Action({ rawError: true })
   async addLock (lock) {
