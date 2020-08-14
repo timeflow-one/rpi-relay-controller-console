@@ -49,7 +49,7 @@ export default class DeviceInfoModal extends Vue {
       },
       {
         key: 'acs_address',
-        value: process.env.VUE_APP_BASE_URL
+        value: document.location.origin
       },
       {
         key: 'acs_door',
