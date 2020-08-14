@@ -22,7 +22,7 @@ export default class AddLockComponent extends Vue {
 
   async addLock () {
     const addingLock = {
-      site: this.sites.find(it => it.id === this.selectedSite)?.name,
+      site: this.sites.find(it => it.id === this.selectedSite)?.title,
       door: this.inputDoorIdentificator,
       type: this.lockTypes.find(it => it.id === this.selectedLockType)?.type,
       is_enabled: true,

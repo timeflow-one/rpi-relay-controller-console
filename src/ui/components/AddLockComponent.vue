@@ -10,7 +10,7 @@
         <v-autocomplete
           v-model="selectedSite"
           :items="sites"
-          item-text="name"
+          item-text="title"
           item-value="id"
           :placeholder="$vuetify.lang.t('$vuetify.locks.select_site_label')"
           :title="$vuetify.lang.t('$vuetify.locks.select_site_label')"

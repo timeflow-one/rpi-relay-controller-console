@@ -6,7 +6,7 @@ import NotificationStore from '@/store/NotificationStore'
 export default class ConfigsView extends Vue {
   checkTokenProgress = false
 
-  _tokenValid = false
+  isTokenValid = false
 
   created () {
     this._token = PreferencesStore.token
@@ -21,7 +21,7 @@ export default class ConfigsView extends Vue {
   }
 
   async save () {
-    PreferencesStore.setConfigured(this._tokenValid)
+    PreferencesStore.setConfigured(this.isTokenValid)
     await PreferencesStore.save()
 
     NotificationStore.showMessage({
@@ -34,7 +34,7 @@ export default class ConfigsView extends Vue {
   }
 
   get saveButtonEnabled () {
-    return this._tokenValid
+    return this.isTokenValid
   }
 
   /**
@@ -55,14 +55,14 @@ export default class ConfigsView extends Vue {
         msg.message = this.$vuetify.lang.t('$vuetify.notifications.token_valid')
         msg.status = 'success'
 
-        this._tokenValid = true
+        this.isTokenValid = true
       } catch (err) {
         switch (err.response?.data?.error?.title) {
           default: {
             msg.message = this.$vuetify.lang.t('$vuetify.notifications.token_error_checking')
             msg.status = 'error'
 
-            this._tokenValid = false
+            this.isTokenValid = false
           }
         }
       } finally {
