@@ -18,7 +18,7 @@ class SitesStore extends VuexModule {
   async loadSites () {
     if (PreferencesStore.token) {
       const api = new BackendProvider()
-      const sites = await api.getSites(PreferencesStore.token)
+      const sites = await (await api.getSites(PreferencesStore.token)).data.results
 
       return {
         sites

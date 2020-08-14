@@ -59,7 +59,7 @@ export class BackendProvider {
   /**
    * @param {string} token
    * @param {object} params
-   * @returns {Promise<import('axios').AxiosResponse<import('@/models/SiteModel').SiteModel>>}
+   * @returns {Promise<import('axios').AxiosResponse<import('../responses/ApiResponse').ApiResponse<Array<import('@/models/SiteModel').SiteModel>>>>}
    */
   async getSites (token, params = {}) {
     return this.requestManager.get('/api/sites', {
@@ -76,7 +76,11 @@ export class BackendProvider {
    */
   async checkToken (token) {
     // TODO (2020.08.12): Check token
-    throw new Error('Not implemented')
-    // return this.requestManager.get('')
+    // throw new Error('Not implemented')
+    return this.requestManager.get('/api/sites', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
   }
 }
