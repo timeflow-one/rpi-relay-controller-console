@@ -57,7 +57,7 @@ export default class LocksTableComponent extends Vue {
     },
     {
       header: this.$vuetify.lang.t('$vuetify.locks.table.headers[6]'),
-      hidden: true
+      hidden: false
     },
     {
       header: this.$vuetify.lang.t('$vuetify.locks.table.headers[7]'),
