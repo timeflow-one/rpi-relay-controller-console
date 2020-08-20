@@ -121,4 +121,10 @@ export default class AddLockComponent extends Vue {
       this.selectedLockType = values[0].id
     }
   }
+
+  @Watch('selectedLockType')
+  onLockTypeChanged () {
+    this.selectedRelayIn = -1
+    this.selectedRelayOut = -1
+  }
 }
