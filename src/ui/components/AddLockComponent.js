@@ -27,8 +27,8 @@ export default class AddLockComponent extends Vue {
       type: this.lockTypes.find(it => it.id === this.selectedLockType)?.type,
       is_enabled: true,
       timeout: this.timeout * 1000,
-      relay_in: this.relays.find(it => it.id === this.selectedRelayIn)?.id,
-      relay_out: this.relays.find(it => it.id === this.selectedRelayOut)?.id
+      relay_in: this.selectedRelayIn > -1 ? this.relays.find(it => it.id === this.selectedRelayIn)?.id : null,
+      relay_out: this.selectedRelayOut > -1 ? this.relays.find(it => it.id === this.selectedRelayOut)?.id : null
     }
 
     try {
@@ -106,6 +106,10 @@ export default class AddLockComponent extends Vue {
 
   get addButtonDisabled () {
     return this.selectedLockType < 0 || this.selectedSite < 0 || this.inputDoorIdentificator === '' || this.selectedRelayIn < 0
+  }
+
+  get selectedSimpleLockType () {
+    return this.selectedLockType <= 0
   }
 
   /**

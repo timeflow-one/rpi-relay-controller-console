@@ -4,7 +4,7 @@
       <v-col
         cols="12"
         sm="6"
-        lg="3"
+        lg="2"
       >
         <v-subheader v-text="$vuetify.lang.t('$vuetify.locks.site_label')" />
         <v-autocomplete
@@ -23,7 +23,7 @@
       <v-col
         cols="12"
         sm="6"
-        lg="3"
+        lg="2"
       >
         <v-subheader v-text="$vuetify.lang.t('$vuetify.locks.door_label')" />
         <v-text-field
@@ -101,7 +101,6 @@
         cols="12"
         sm="6"
         lg="2"
-        hidden
       >
         <v-subheader v-text="$vuetify.lang.t('$vuetify.locks.relay_out_label')" />
         <v-select
@@ -111,6 +110,7 @@
           item-text="gpio"
           :placeholder="$vuetify.lang.t('$vuetify.locks.select_relay_out_label')"
           :title="$vuetify.lang.t('$vuetify.locks.select_relay_out_label')"
+          :disabled="selectedSimpleLockType"
           prepend-inner-icon="mdi-transit-detour"
           outlined
           hide-details

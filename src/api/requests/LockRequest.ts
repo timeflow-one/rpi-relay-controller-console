@@ -6,6 +6,6 @@ export interface LockRequest {
   type: LockType;
   is_enabled: boolean;
   timeout: number;
-  relay_in?: number;
-  relay_out?: number;
+  relay_in?: number | null;
+  relay_out?: number | null;
 }
